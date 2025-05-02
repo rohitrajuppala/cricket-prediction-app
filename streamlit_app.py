@@ -24,7 +24,7 @@ total = len(filtered)
 india_wins = (filtered["winner"] == "India").sum()
 opp_wins = (filtered["winner"] == opponent).sum()
 
-st.markdown(f"### 📊 Historic Performance vs **{opponent}** at Target {target_score}")
+st.markdown(f"### 📊 India vs **{opponent}**}")
 if total > 0:
     st.markdown(f"- 🇮🇳 India Win %: **{(india_wins / total * 100):.1f}%**")
     st.markdown(f"- 🏴 {opponent} Win %: **{(opp_wins / total * 100):.1f}%**")
