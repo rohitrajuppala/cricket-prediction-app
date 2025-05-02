@@ -4,14 +4,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
-from collections import defaultdict
 
-# Load data
-with open("india_vs_others.json") as f:
+# Load cleaned data with real target scores
+with open("india_vs_matches.json") as f:
     data = json.load(f)
 
 df = pd.DataFrame(data)
-df["target_score"] = 200  # placeholder column for training
 
 X = df.drop(columns=["winner"])
 y = df["winner"]
@@ -25,7 +23,7 @@ preprocessor = ColumnTransformer(
 
 model = Pipeline(steps=[
     ("preprocessor", preprocessor),
-    ("classifier", RandomForestClassifier(n_estimators=25, max_depth=10, random_state=42))
+    ("classifier", RandomForestClassifier(n_estimators=50, max_depth=10, random_state=42))
 ])
 
 model.fit(X, y)
@@ -41,7 +39,7 @@ def predict_match_winner(venue, team2, toss_winner, toss_decision, target_score)
     }])
     return model.predict_proba(input_df)[0]
 
-# EDA function
+# For EDA: Bin target_score and group win rates
 def win_percent_by_target(df):
     bins = [0, 100, 200, 300, 400, 500]
     df["target_bin"] = pd.cut(df["target_score"], bins=bins)
