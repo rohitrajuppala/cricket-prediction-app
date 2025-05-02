@@ -39,7 +39,7 @@ def predict_match_winner(venue, team2, toss_winner, toss_decision, target_score)
     }])
     return model.predict_proba(input_df)[0]
 
-# For EDA: Bin target_score and group win rates
+# EDA function: win % by target bins
 def win_percent_by_target(df):
     bins = [0, 100, 200, 300, 400, 500]
     df["target_bin"] = pd.cut(df["target_score"], bins=bins)
