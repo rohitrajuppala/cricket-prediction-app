@@ -1,11 +1,9 @@
-import joblib
 import pandas as pd
+import joblib
 
-# Load trained model
+# Load the compressed model trained in a Python 3.12-compatible environment
 model = joblib.load("t20_model.pkl")
 
-# Encoding maps or schema should match training-time format
-# This is a basic example assuming all categorical features were one-hot encoded
 def predict_match_winner(venue, team1, team2, toss_winner, toss_decision):
     input_dict = {
         "venue": venue,
@@ -18,13 +16,13 @@ def predict_match_winner(venue, team1, team2, toss_winner, toss_decision):
     df = pd.DataFrame([input_dict])
 
     # Ensure all encoding, feature engineering matches training-time logic
-    df_encoded = pd.get_dummies(df)  # Simplified; ideally reuse same feature columns as training
+    df_encoded = pd.get_dummies(df)  # Simplified; assumes model trained with one-hot encoding
 
-    # Align columns with training model
+    # Align with training feature columns
     model_columns = model.feature_names_in_
     for col in model_columns:
         if col not in df_encoded.columns:
-            df_encoded[col] = 0  # Add missing columns as 0
+            df_encoded[col] = 0
     df_encoded = df_encoded[model_columns]
 
     prediction = model.predict(df_encoded)[0]
