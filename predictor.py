@@ -7,7 +7,7 @@ from sklearn.preprocessing import OneHotEncoder
 from collections import defaultdict
 
 # Load data
-with open("cleaned_india_vs_matches.json") as f:
+with open("india_vs_others.json") as f:
     data = json.load(f)
 
 df = pd.DataFrame(data)
