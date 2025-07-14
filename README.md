@@ -10,7 +10,6 @@ Predicting cricket match results is a challenging task due to the sport’s dyna
 
 * Murali Krishna Kaye
 * Rohit Raj Uppala
-* Tirumala Tejaswi Masimukku
 
 ## Objectives
 
